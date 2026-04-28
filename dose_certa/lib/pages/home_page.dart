@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../core/theme/app_colors.dart';
+import '../widgets/dose_certa_logo.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});

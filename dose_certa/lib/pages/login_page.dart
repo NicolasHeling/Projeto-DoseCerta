@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import '../core/theme/app_colors.dart'; // Importa as suas cores personalizadas
+import '../core/theme/app_colors.dart';
+import 'main_screen.dart';
+import '../widgets/dose_certa_logo.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
@@ -166,7 +168,15 @@ class LoginPage extends StatelessWidget {
                         width: double.infinity,
                         height: 56,
                         child: ElevatedButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            // Navega para a MainScreen ao clicar em Entrar
+                            Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const MainScreen(),
+                              ),
+                            );
+                          },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: AppColors.primaryRed,
                             shape: RoundedRectangleBorder(

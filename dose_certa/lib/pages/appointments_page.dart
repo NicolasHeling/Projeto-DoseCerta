@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import '../core/theme/app_colors.dart';
+import 'new_appointment_page.dart';
+import '../widgets/dose_certa_logo.dart';
 
 class AppointmentsPage extends StatefulWidget {
   const AppointmentsPage({super.key});
@@ -144,7 +146,15 @@ class _AppointmentsPageState extends State<AppointmentsPage> {
                 width: double.infinity,
                 height: 56,
                 child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    // Navega para a tela de Nova Consulta
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const NewAppointmentPage(),
+                      ),
+                    );
+                  },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: AppColors.primaryRed,
                     shape: RoundedRectangleBorder(
@@ -176,6 +186,7 @@ class _AppointmentsPageState extends State<AppointmentsPage> {
     );
   }
 
+  // Widget customizado para o item da lista de consultas
   Widget _buildAppointmentItem({
     required String doctorName,
     required String specialty,
@@ -186,22 +197,27 @@ class _AppointmentsPageState extends State<AppointmentsPage> {
     required Color doctorAvatarColor,
     required Color patientAvatarColor,
   }) {
+    // Define as cores com base no status
     final Color statusTextColor = isCompleted ? _successText : _cancelText;
     final Color statusBgColor = isCompleted ? _successBg : _cancelBg;
 
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        // Avatar do Médico
         CircleAvatar(
           radius: 28,
           backgroundColor: doctorAvatarColor,
           child: const Icon(Icons.person, size: 32, color: Colors.white),
         ),
         const SizedBox(width: 16),
+
+        // Informações da Consulta
         Expanded(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              // Nome do Médico e Pill de Status
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -217,6 +233,8 @@ class _AppointmentsPageState extends State<AppointmentsPage> {
                     ),
                   ),
                   const SizedBox(width: 8),
+
+                  // Pílula de Status
                   Container(
                     padding: const EdgeInsets.symmetric(
                       horizontal: 10,
@@ -249,17 +267,23 @@ class _AppointmentsPageState extends State<AppointmentsPage> {
                 ],
               ),
               const SizedBox(height: 4),
+
+              // Especialidade
               Text(
                 specialty,
                 style: TextStyle(fontSize: 14, color: Colors.grey[700]),
               ),
               const SizedBox(height: 12),
+
+              // Avatar do Paciente (Pequeno)
               CircleAvatar(
                 radius: 14,
                 backgroundColor: patientAvatarColor,
                 child: const Icon(Icons.person, size: 18, color: Colors.white),
               ),
               const SizedBox(height: 16),
+
+              // Data e Hora
               Row(
                 children: [
                   Icon(

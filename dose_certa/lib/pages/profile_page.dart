@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import '../core/theme/app_colors.dart';
+import 'dependentes_page.dart';
+import '../widgets/dose_certa_logo.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -9,9 +11,6 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-  // O índice 4 representa a aba "Perfil"
-  int _selectedIndex = 4;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,7 +26,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 ),
                 child: Column(
                   children: [
-                    // Cabeçalho (Logo e Definições)
+                    // Cabeçalho
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -67,7 +66,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     ),
                     const SizedBox(height: 32),
 
-                    // Avatar e Botão de Edição
+                    // Avatar
                     Stack(
                       alignment: Alignment.bottomRight,
                       children: [
@@ -97,7 +96,6 @@ class _ProfilePageState extends State<ProfilePage> {
                     ),
                     const SizedBox(height: 16),
 
-                    // Nome e E-mail
                     const Text(
                       'João Silva',
                       style: TextStyle(
@@ -113,7 +111,6 @@ class _ProfilePageState extends State<ProfilePage> {
                     ),
                     const SizedBox(height: 16),
 
-                    // Botão "Editar Perfil"
                     ElevatedButton(
                       onPressed: () {},
                       style: ElevatedButton.styleFrom(
@@ -141,19 +138,16 @@ class _ProfilePageState extends State<ProfilePage> {
                       title: 'Informações Adicionais',
                     ),
                     _buildDivider(),
-
                     _buildProfileOption(
                       icon: Icons.contact_emergency_outlined,
                       title: 'Contatos de Emergência',
                     ),
                     _buildDivider(),
-
                     _buildProfileOption(
                       icon: Icons.notifications_none,
                       title: 'Notificações',
                     ),
                     _buildDivider(),
-
                     _buildProfileOption(
                       icon: Icons.dark_mode_outlined,
                       title: 'Tema',
@@ -167,42 +161,53 @@ class _ProfilePageState extends State<ProfilePage> {
                     ),
                     _buildDivider(),
 
-                    _buildProfileOption(
-                      icon: Icons.account_tree_outlined,
-                      title: 'Dependentes',
-                      trailing: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Container(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 8,
-                              vertical: 4,
-                            ),
-                            decoration: BoxDecoration(
-                              color: const Color(0xFFFDECEB),
-                              borderRadius: BorderRadius.circular(12),
-                            ),
-                            child: const Text(
-                              '2 Ativos',
-                              style: TextStyle(
-                                color: AppColors.primaryRed,
-                                fontSize: 10,
-                                fontWeight: FontWeight.bold,
+                    // ESTA É A PARTE QUE ENVOLVEMOS COM INKWELL:
+                    InkWell(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const DependentesPage(),
+                          ),
+                        );
+                      },
+                      child: _buildProfileOption(
+                        icon: Icons.account_tree_outlined,
+                        title: 'Dependentes',
+                        trailing: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Container(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 8,
+                                vertical: 4,
+                              ),
+                              decoration: BoxDecoration(
+                                color: const Color(0xFFFDECEB),
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                              child: const Text(
+                                '2 Ativos',
+                                style: TextStyle(
+                                  color: AppColors.primaryRed,
+                                  fontSize: 10,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
                             ),
-                          ),
-                          const SizedBox(width: 8),
-                          const Icon(
-                            Icons.chevron_right,
-                            color: Colors.grey,
-                            size: 20,
-                          ),
-                        ],
+                            const SizedBox(width: 8),
+                            const Icon(
+                              Icons.chevron_right,
+                              color: Colors.grey,
+                              size: 20,
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                     const SizedBox(height: 40),
 
-                    // Botão Sair da Conta
+                    // Botão Sair
                     SizedBox(
                       width: double.infinity,
                       height: 56,
@@ -238,43 +243,6 @@ class _ProfilePageState extends State<ProfilePage> {
             ),
           ],
         ),
-      ),
-
-      // Barra de Navegação Inferior
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _selectedIndex,
-        onTap: (index) {
-          setState(() {
-            _selectedIndex = index;
-          });
-        },
-        type: BottomNavigationBarType.fixed,
-        selectedItemColor: AppColors.primaryRed,
-        unselectedItemColor: AppColors.textGrey,
-        showUnselectedLabels: true,
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home_outlined),
-            label: 'Início',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.inventory_2_outlined),
-            label: 'Estoque',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.history),
-            label: 'Histórico',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.medical_services_outlined),
-            label: 'Consultas',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            activeIcon: Icon(Icons.person),
-            label: 'Perfil',
-          ),
-        ],
       ),
     );
   }

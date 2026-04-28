@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../core/theme/app_colors.dart';
+import 'main_screen.dart';
 
 // Importando todas as suas telas
 import 'home_page.dart';

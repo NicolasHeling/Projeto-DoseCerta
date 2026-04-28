@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'core/theme/app_colors.dart';
 import 'pages/login_page.dart';
+import 'pages/onboarding_page.dart';
 
 void main() {
   runApp(const DoseCertaApp());
@@ -20,7 +21,8 @@ class DoseCertaApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: AppColors.primaryRed),
         useMaterial3: true,
       ),
-      home: const LoginPage(), // Define a tela de Login como a primeira a abrir
+      home:
+          const OnboardingPage(), // Define a tela de Login como a primeira a abrir
     );
   }
 }
