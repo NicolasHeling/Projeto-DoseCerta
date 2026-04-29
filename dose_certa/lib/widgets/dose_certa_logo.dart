@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../core/theme/app_colors.dart'; // Ajuste o caminho se necessário
-import '../pages/main_screen.dart'; // Importa a tela principal para poder voltar pra ela
+import '../core/theme/app_colors.dart';
+import '../pages/main_screen.dart';
 
 class DoseCertaLogo extends StatelessWidget {
   const DoseCertaLogo({super.key});
@@ -9,7 +9,7 @@ class DoseCertaLogo extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        // Apaga o histórico e volta para a MainScreen (Início)
+        // Volta para a tela inicial limpando o histórico
         Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(builder: (context) => const MainScreen()),

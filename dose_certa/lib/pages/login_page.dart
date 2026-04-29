@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../core/theme/app_colors.dart';
+import '../widgets/custom_text_field.dart'; // IMPORT DO NOSSO CAMPO DE TEXTO
 import 'main_screen.dart';
-import '../widgets/dose_certa_logo.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
@@ -9,237 +9,112 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
       body: SafeArea(
-        child: Center(
-          child: SingleChildScrollView(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 24.0,
-              vertical: 16.0,
-            ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                // 1. Logo (Container Vermelho com Ícone)
-                Container(
-                  width: 90,
-                  height: 90,
-                  decoration: BoxDecoration(
-                    color: AppColors.primaryRed,
-                    borderRadius: BorderRadius.circular(24),
-                  ),
-                  child: const Icon(
-                    Icons.medication,
-                    color: Colors.white,
-                    size: 60,
-                  ),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 24.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              const Icon(
+                Icons.medication,
+                size: 64,
+                color: AppColors.primaryRed,
+              ),
+              const SizedBox(height: 16),
+              const Text(
+                'DoseCerta',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 32,
+                  fontWeight: FontWeight.bold,
+                  color: AppColors.textDark,
                 ),
-                const SizedBox(height: 12),
+              ),
+              const SizedBox(height: 8),
+              const Text(
+                'Sua saúde em dia,\ncompletamente na palma da sua mão.',
+                textAlign: TextAlign.center,
+                style: TextStyle(fontSize: 16, color: AppColors.textGrey),
+              ),
+              const SizedBox(height: 48),
 
-                // 2. Título "DoseCerta" bicolor
-                RichText(
-                  text: const TextSpan(
-                    style: TextStyle(
-                      fontSize: 34,
-                      fontWeight: FontWeight.w800,
-                      letterSpacing: -1,
-                    ),
-                    children: [
-                      TextSpan(
-                        text: 'Dose',
-                        style: TextStyle(color: AppColors.primaryRed),
-                      ),
-                      TextSpan(
-                        text: 'Certa',
-                        style: TextStyle(color: AppColors.textDark),
-                      ),
-                    ],
-                  ),
-                ),
-                const SizedBox(height: 40),
+              // NOSSOS CAMPOS DE TEXTO CUSTOMIZADOS
+              const CustomTextField(
+                label: 'E-mail',
+                hint: 'Digite seu e-mail',
+                icon: Icons.email_outlined,
+                isSuffixIcon: false, // Ícone fica na esquerda
+              ),
+              const CustomTextField(
+                label: 'Senha',
+                hint: 'Digite sua senha',
+                icon: Icons.visibility_off_outlined,
+                isObscure: true, // Esconde a senha!
+              ),
 
-                // 3. Container Cinzento com o Formulário
-                Container(
-                  padding: const EdgeInsets.all(24.0),
-                  decoration: BoxDecoration(
-                    color: AppColors.backgroundGrey,
-                    borderRadius: BorderRadius.circular(32),
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      // Campo E-mail ou CPF
-                      const Text(
-                        'E-mail ou CPF',
-                        style: TextStyle(
-                          color: AppColors.textDark,
-                          fontWeight: FontWeight.w700,
-                          fontSize: 14,
-                        ),
-                      ),
-                      const SizedBox(height: 8),
-                      TextField(
-                        decoration: InputDecoration(
-                          hintText: 'Digite seus dados',
-                          hintStyle: const TextStyle(
-                            color: AppColors.textGrey,
-                            fontSize: 14,
-                          ),
-                          prefixIcon: const Icon(
-                            Icons.person_outline,
-                            color: AppColors.textDark,
-                          ),
-                          filled: true,
-                          fillColor: Colors.white,
-                          contentPadding: const EdgeInsets.symmetric(
-                            vertical: 16,
-                          ),
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(12),
-                            borderSide: BorderSide.none,
-                          ),
-                        ),
-                      ),
-                      const SizedBox(height: 20),
-
-                      // Campo Senha
-                      const Text(
-                        'Senha',
-                        style: TextStyle(
-                          color: AppColors.textDark,
-                          fontWeight: FontWeight.w700,
-                          fontSize: 14,
-                        ),
-                      ),
-                      const SizedBox(height: 8),
-                      TextField(
-                        obscureText: true,
-                        decoration: InputDecoration(
-                          hintText: 'Sua senha secreta',
-                          hintStyle: const TextStyle(
-                            color: AppColors.textGrey,
-                            fontSize: 14,
-                          ),
-                          prefixIcon: const Icon(
-                            Icons.lock_outline,
-                            color: AppColors.textDark,
-                          ),
-                          suffixIcon: const Icon(
-                            Icons.visibility_outlined,
-                            color: AppColors.textDark,
-                          ),
-                          filled: true,
-                          fillColor: Colors.white,
-                          contentPadding: const EdgeInsets.symmetric(
-                            vertical: 16,
-                          ),
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(12),
-                            borderSide: BorderSide.none,
-                          ),
-                        ),
-                      ),
-                      const SizedBox(height: 12),
-
-                      // Esqueceu a senha?
-                      Align(
-                        alignment: Alignment.centerRight,
-                        child: TextButton(
-                          onPressed: () {},
-                          style: TextButton.styleFrom(
-                            padding: EdgeInsets.zero,
-                            minimumSize: const Size(0, 0),
-                            tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                          ),
-                          child: const Text(
-                            'Esqueceu a senha?',
-                            style: TextStyle(
-                              color: AppColors.primaryRed,
-                              fontWeight: FontWeight.w600,
-                              fontSize: 14,
-                            ),
-                          ),
-                        ),
-                      ),
-                      const SizedBox(height: 24),
-
-                      // Botão Entrar
-                      SizedBox(
-                        width: double.infinity,
-                        height: 56,
-                        child: ElevatedButton(
-                          onPressed: () {
-                            // Navega para a MainScreen ao clicar em Entrar
-                            Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => const MainScreen(),
-                              ),
-                            );
-                          },
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: AppColors.primaryRed,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(28),
-                            ),
-                            elevation: 0,
-                          ),
-                          child: const Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                'Entrar',
-                                style: TextStyle(
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white,
-                                ),
-                              ),
-                              SizedBox(width: 8),
-                              Icon(
-                                Icons.arrow_forward,
-                                color: Colors.white,
-                                size: 20,
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                const SizedBox(height: 40),
-
-                // 4. Rodapé "Criar conta"
-                const Text(
-                  'Ainda não tem acesso?',
-                  style: TextStyle(color: AppColors.textDark, fontSize: 15),
-                ),
-                const SizedBox(height: 4),
-                TextButton(
+              Align(
+                alignment: Alignment.centerRight,
+                child: TextButton(
                   onPressed: () {},
-                  child: const Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Text(
-                        'Criar conta',
-                        style: TextStyle(
-                          color: AppColors.primaryRed,
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      const SizedBox(width: 4),
-                      Icon(
-                        Icons.add_circle_outline,
-                        color: AppColors.primaryRed,
-                        size: 18,
-                      ),
-                    ],
+                  child: const Text(
+                    'Esqueceu a senha?',
+                    style: TextStyle(
+                      color: AppColors.primaryRed,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
-              ],
-            ),
+              ),
+              const SizedBox(height: 24),
+              SizedBox(
+                height: 56,
+                child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const MainScreen(),
+                      ),
+                    );
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: AppColors.primaryRed,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(28),
+                    ),
+                  ),
+                  child: const Text(
+                    'Entrar',
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 24),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Text(
+                    'Não tem uma conta?',
+                    style: TextStyle(color: AppColors.textGrey),
+                  ),
+                  TextButton(
+                    onPressed: () {},
+                    child: const Text(
+                      'Criar conta',
+                      style: TextStyle(
+                        color: AppColors.primaryRed,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ],
           ),
         ),
       ),

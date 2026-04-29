@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'core/theme/app_colors.dart';
-import 'pages/login_page.dart';
-import 'pages/onboarding_page.dart';
+import 'pages/onboarding_page.dart'; // Ou login_page.dart, se preferir
 
 void main() {
   runApp(const DoseCertaApp());
@@ -14,15 +13,15 @@ class DoseCertaApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Dose Certa',
-      debugShowCheckedModeBanner: false, // Tira aquela faixa de "DEBUG" da tela
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primaryColor: AppColors.primaryRed,
-        scaffoldBackgroundColor: AppColors.backgroundWhite,
-        colorScheme: ColorScheme.fromSeed(seedColor: AppColors.primaryRed),
+        fontFamily: 'Roboto',
         useMaterial3: true,
+        // MELHORIA 2: Fundo branco para todas as telas do app
+        scaffoldBackgroundColor: Colors.white,
+        colorScheme: ColorScheme.fromSeed(seedColor: AppColors.primaryRed),
       ),
-      home:
-          const OnboardingPage(), // Define a tela de Login como a primeira a abrir
+      home: const OnboardingPage(),
     );
   }
 }

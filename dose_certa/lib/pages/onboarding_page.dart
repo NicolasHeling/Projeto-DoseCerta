@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import '../core/theme/app_colors.dart';
 import 'login_page.dart';
-import '../widgets/dose_certa_logo.dart';
 
 class OnboardingPage extends StatelessWidget {
   const OnboardingPage({super.key});
@@ -9,60 +8,76 @@ class OnboardingPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 40.0),
+          padding: const EdgeInsets.symmetric(horizontal: 32.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              // 1. Logo
-              Container(
-                width: 120,
-                height: 120,
-                decoration: BoxDecoration(
-                  color: AppColors.primaryRed,
-                  borderRadius: BorderRadius.circular(32),
-                ),
-                child: const Icon(
-                  Icons.medication,
-                  color: Colors.white,
-                  size: 80,
-                ),
-              ),
-              const SizedBox(height: 16),
+              const Spacer(),
 
-              // 2. Título "DoseCerta"
-              RichText(
-                text: const TextSpan(
-                  style: TextStyle(
-                    fontSize: 40,
-                    fontWeight: FontWeight.w800,
-                    letterSpacing: -1,
+              // Logo Central
+              Center(
+                child: Container(
+                  width: 130,
+                  height: 130,
+                  decoration: BoxDecoration(
+                    color: AppColors.primaryRed,
+                    borderRadius: BorderRadius.circular(
+                      32,
+                    ), // Borda bem arredondada
+                    boxShadow: [
+                      BoxShadow(
+                        color: AppColors.primaryRed.withOpacity(0.3),
+                        blurRadius: 20,
+                        offset: const Offset(0, 10),
+                      ),
+                    ],
                   ),
-                  children: [
-                    TextSpan(
-                      text: 'Dose',
-                      style: TextStyle(color: AppColors.primaryRed),
+                  child: const Icon(
+                    Icons
+                        .medication, // Ícone temporário até você colocar a imagem do Figma
+                    size: 80,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+              const SizedBox(height: 24),
+
+              // Título com duas cores (RichText)
+              Center(
+                child: RichText(
+                  text: const TextSpan(
+                    style: TextStyle(
+                      fontSize: 42,
+                      fontWeight: FontWeight.bold,
+                      letterSpacing:
+                          -1.5, // Deixa as letras mais juntinhas igual na imagem
                     ),
-                    TextSpan(
-                      text: 'Certa',
-                      style: TextStyle(color: AppColors.textDark),
-                    ),
-                  ],
+                    children: [
+                      TextSpan(
+                        text: 'Dose',
+                        style: TextStyle(color: AppColors.primaryRed),
+                      ),
+                      TextSpan(
+                        text: 'Certa',
+                        style: TextStyle(color: AppColors.textDark),
+                      ),
+                    ],
+                  ),
                 ),
               ),
 
-              const SizedBox(height: 80),
+              const Spacer(),
 
-              // 3. Botão "Uso Pessoal"
+              // Botão Uso Pessoal
               SizedBox(
-                width: double.infinity,
                 height: 64,
                 child: ElevatedButton(
                   onPressed: () {
-                    // Navega para o Login
-                    Navigator.push(
+                    // Navega para a tela de Login
+                    Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
                         builder: (context) => const LoginPage(),
@@ -72,7 +87,9 @@ class OnboardingPage extends StatelessWidget {
                   style: ElevatedButton.styleFrom(
                     backgroundColor: AppColors.primaryRed,
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(16),
+                      borderRadius: BorderRadius.circular(
+                        16,
+                      ), // Menos arredondado que o botão padrão
                     ),
                     elevation: 0,
                   ),
@@ -86,17 +103,14 @@ class OnboardingPage extends StatelessWidget {
                   ),
                 ),
               ),
-
-              const SizedBox(height: 24),
-
-              // 4. Botão "Responsável"
+              const SizedBox(height: 20), // Espaço entre os botões
+              // Botão Responsável
               SizedBox(
-                width: double.infinity,
                 height: 64,
                 child: ElevatedButton(
                   onPressed: () {
-                    // Navega para o Login
-                    Navigator.push(
+                    // Navega para a tela de Login (futuramente pode ir para outro fluxo)
+                    Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
                         builder: (context) => const LoginPage(),
@@ -120,6 +134,8 @@ class OnboardingPage extends StatelessWidget {
                   ),
                 ),
               ),
+
+              const Spacer(),
             ],
           ),
         ),

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import '../core/theme/app_colors.dart';
-import '../widgets/dose_certa_logo.dart';
+import '../widgets/custom_text_field.dart';
+import 'success_page.dart'; // Import da tela de sucesso
+import 'main_screen.dart'; // Import da tela principal
 
 class NewDependentePage extends StatefulWidget {
   const NewDependentePage({super.key});
@@ -10,17 +12,14 @@ class NewDependentePage extends StatefulWidget {
 }
 
 class _NewDependentePageState extends State<NewDependentePage> {
-  // Variável para controlar qual parentesco está selecionado
   String selectedParentesco = "Filho";
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
       body: SafeArea(
         child: Column(
           children: [
-            // Cabeçalho (Botão Fechar e Título)
             Padding(
               padding: const EdgeInsets.symmetric(
                 horizontal: 16.0,
@@ -45,8 +44,6 @@ class _NewDependentePageState extends State<NewDependentePage> {
                 ],
               ),
             ),
-
-            // Corpo Rolável
             Expanded(
               child: SingleChildScrollView(
                 padding: const EdgeInsets.symmetric(
@@ -56,7 +53,6 @@ class _NewDependentePageState extends State<NewDependentePage> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    // Card Vermelho "Dependente"
                     Container(
                       width: double.infinity,
                       height: 140,
@@ -81,13 +77,12 @@ class _NewDependentePageState extends State<NewDependentePage> {
                     ),
                     const SizedBox(height: 32),
 
-                    // Formulário
-                    _buildInputField(
+                    const CustomTextField(
                       label: 'NOME COMPLETO',
                       hint: 'Ex: João',
                       icon: Icons.person_outline,
                     ),
-                    _buildInputField(
+                    const CustomTextField(
                       label: 'DATA DE NASCIMENTO',
                       hint: '00/00/0000',
                       icon: Icons.calendar_today_outlined,
@@ -104,7 +99,6 @@ class _NewDependentePageState extends State<NewDependentePage> {
                     ),
                     const SizedBox(height: 12),
 
-                    // Botões de Seleção (Parentesco)
                     Wrap(
                       spacing: 8,
                       runSpacing: 12,
@@ -121,8 +115,6 @@ class _NewDependentePageState extends State<NewDependentePage> {
                 ),
               ),
             ),
-
-            // Botão Salvar
             Padding(
               padding: const EdgeInsets.all(24.0),
               child: SizedBox(
@@ -130,7 +122,26 @@ class _NewDependentePageState extends State<NewDependentePage> {
                 height: 56,
                 child: ElevatedButton(
                   onPressed: () {
-                    // Lógica para salvar
+                    // NAVEGAÇÃO PARA A TELA DE SUCESSO
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => SuccessPage(
+                          title: 'Cadastro Realizado\ncom Sucesso!',
+                          subtitle: 'O dependente foi vinculado à sua conta.',
+                          buttonText: 'Ir para o Início',
+                          onButtonPressed: () {
+                            Navigator.pushAndRemoveUntil(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const MainScreen(),
+                              ),
+                              (Route<dynamic> route) => false,
+                            );
+                          },
+                        ),
+                      ),
+                    );
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: AppColors.primaryRed,
@@ -164,52 +175,6 @@ class _NewDependentePageState extends State<NewDependentePage> {
     );
   }
 
-  // Widget para os campos de texto
-  Widget _buildInputField({
-    required String label,
-    required String hint,
-    required IconData icon,
-  }) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 24.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            label,
-            style: const TextStyle(
-              color: AppColors.textDark,
-              fontWeight: FontWeight.bold,
-              fontSize: 14,
-            ),
-          ),
-          const SizedBox(height: 8),
-          TextField(
-            decoration: InputDecoration(
-              hintText: hint,
-              hintStyle: const TextStyle(
-                color: AppColors.textGrey,
-                fontSize: 15,
-              ),
-              suffixIcon: Icon(icon, color: AppColors.textGrey, size: 22),
-              filled: true,
-              fillColor: AppColors.backgroundGrey,
-              contentPadding: const EdgeInsets.symmetric(
-                horizontal: 20,
-                vertical: 16,
-              ),
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(16),
-                borderSide: BorderSide.none,
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  // Widget para os botões de escolha (chips)
   Widget _buildChoiceChip(String label) {
     bool isSelected = selectedParentesco == label;
     return GestureDetector(

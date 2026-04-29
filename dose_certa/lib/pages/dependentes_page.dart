@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../core/theme/app_colors.dart';
+import '../widgets/dose_certa_logo.dart'; // IMPORT DA LOGO
 import 'new_dependente_page.dart';
-import '../widgets/dose_certa_logo.dart';
 
 class DependentesPage extends StatelessWidget {
   const DependentesPage({super.key});
@@ -9,7 +9,6 @@ class DependentesPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
       body: SafeArea(
         child: Column(
           children: [
@@ -28,24 +27,7 @@ class DependentesPage extends StatelessWidget {
                     ),
                     onPressed: () => Navigator.pop(context),
                   ),
-                  const Row(
-                    children: [
-                      Icon(
-                        Icons.medication,
-                        color: AppColors.primaryRed,
-                        size: 20,
-                      ),
-                      SizedBox(width: 8),
-                      Text(
-                        'DoseCerta',
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                          color: AppColors.textDark,
-                        ),
-                      ),
-                    ],
-                  ),
+                  const DoseCertaLogo(), // LOGO CLICÁVEL AQUI
                 ],
               ),
             ),
@@ -130,8 +112,6 @@ class DependentesPage extends StatelessWidget {
                 ),
               ),
             ),
-
-            // BOTÃO ATUALIZADO COM NAVEGAÇÃO
             Padding(
               padding: const EdgeInsets.all(24.0),
               child: SizedBox(

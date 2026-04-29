@@ -1,43 +1,24 @@
 import 'package:flutter/material.dart';
 import '../core/theme/app_colors.dart';
-import '../widgets/dose_certa_logo.dart';
+import '../widgets/dose_certa_logo.dart'; // IMPORT DA LOGO
 
-class HomePage extends StatefulWidget {
+class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
   @override
-  State<HomePage> createState() => _HomePageState();
-}
-
-class _HomePageState extends State<HomePage> {
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
       body: SafeArea(
         child: SingleChildScrollView(
-          padding: const EdgeInsets.all(24.0),
+          padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 16.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Cabeçalho (Logo, Nome e Perfil)
+              // Cabeçalho
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Row(
-                    children: [
-                      Icon(Icons.medication, color: AppColors.primaryRed),
-                      SizedBox(width: 8),
-                      Text(
-                        'DoseCerta',
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                          color: AppColors.textDark,
-                        ),
-                      ),
-                    ],
-                  ),
+                  const DoseCertaLogo(), // LOGO CLICÁVEL AQUI
                   Row(
                     children: [
                       const Icon(
@@ -60,7 +41,7 @@ class _HomePageState extends State<HomePage> {
               ),
               const SizedBox(height: 32),
 
-              // Data e Título
+              // Saudação e Data
               const Text(
                 'Quinta-feira, 24 de Outubro',
                 style: TextStyle(color: AppColors.textGrey, fontSize: 14),
@@ -76,36 +57,37 @@ class _HomePageState extends State<HomePage> {
               ),
               const SizedBox(height: 24),
 
-              // Cards de Resumo (Doses Tomadas e Próxima Dose)
+              // Cards de Resumo
               Row(
                 children: [
                   Expanded(
                     child: Container(
-                      padding: const EdgeInsets.all(16),
+                      padding: const EdgeInsets.all(20),
                       decoration: BoxDecoration(
                         color: AppColors.backgroundGrey,
                         borderRadius: BorderRadius.circular(24),
                       ),
-                      child: Column(
+                      child: const Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Icon(
+                          Icon(
                             Icons.check_circle_outline,
                             color: AppColors.primaryRed,
                           ),
-                          const SizedBox(height: 12),
-                          const Text(
+                          SizedBox(height: 16),
+                          Text(
                             '4/6',
                             style: TextStyle(
                               fontSize: 24,
                               fontWeight: FontWeight.bold,
+                              color: AppColors.textDark,
                             ),
                           ),
                           Text(
                             'Doses tomadas',
                             style: TextStyle(
-                              color: Colors.grey[700],
-                              fontSize: 13,
+                              fontSize: 12,
+                              color: AppColors.textGrey,
                             ),
                           ),
                         ],
@@ -115,29 +97,30 @@ class _HomePageState extends State<HomePage> {
                   const SizedBox(width: 16),
                   Expanded(
                     child: Container(
-                      padding: const EdgeInsets.all(16),
+                      padding: const EdgeInsets.all(20),
                       decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(24),
                         border: Border.all(color: Colors.grey.shade200),
                       ),
-                      child: Column(
+                      child: const Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Icon(Icons.access_time, color: Colors.teal),
-                          const SizedBox(height: 12),
-                          const Text(
+                          Icon(Icons.access_time, color: Colors.teal),
+                          SizedBox(height: 16),
+                          Text(
                             '14:00',
                             style: TextStyle(
                               fontSize: 24,
                               fontWeight: FontWeight.bold,
+                              color: AppColors.textDark,
                             ),
                           ),
                           Text(
                             'Próxima dose',
                             style: TextStyle(
-                              color: Colors.grey[700],
-                              fontSize: 13,
+                              fontSize: 12,
+                              color: AppColors.textGrey,
                             ),
                           ),
                         ],
@@ -146,64 +129,55 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ],
               ),
-              const SizedBox(height: 40),
+              const SizedBox(height: 32),
 
-              // Seção "Hoje"
-              const Row(
+              // Hoje e Ver tudo
+              Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
+                  const Text(
                     'Hoje',
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                  ),
-                  Text(
-                    'Ver tudo',
                     style: TextStyle(
-                      color: AppColors.primaryRed,
+                      fontSize: 20,
                       fontWeight: FontWeight.bold,
+                      color: AppColors.textDark,
+                    ),
+                  ),
+                  TextButton(
+                    onPressed: () {},
+                    child: const Text(
+                      'Ver tudo',
+                      style: TextStyle(
+                        color: AppColors.primaryRed,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
                 ],
               ),
-              const SizedBox(height: 24),
+              const SizedBox(height: 16),
 
-              // Lista de Medicamentos (Timeline)
+              // Linha do Tempo de Medicamentos
               _buildTimelineItem(
                 time: '08:00',
                 title: 'Paracetamol',
                 subtitle: '1 comprimido • Com comida',
                 isCompleted: true,
-                isActive: false,
+                isNext: false,
               ),
-
               _buildTimelineItem(
                 time: '14:00',
-                title: 'Ibuprofeno',
-                subtitle: '600mg • 1\ncomprimido',
+                title: 'Paracetamol',
+                subtitle: '600mg • 1 comprimido',
                 isCompleted: false,
-                isActive: true,
-                actionButton: ElevatedButton(
-                  onPressed: () {},
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: AppColors.primaryRed,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(16),
-                    ),
-                  ),
-                  child: const Text(
-                    'Check',
-                    style: TextStyle(color: Colors.white),
-                  ),
-                ),
+                isNext: true,
               ),
-
               _buildTimelineItem(
                 time: '22:30',
-                title: 'Melatonina',
+                title: 'Paracetamol',
                 subtitle: '3mg • 1 cápsula',
                 isCompleted: false,
-                isActive: false,
-                hasImage: true,
+                isNext: false,
                 isLast: true,
               ),
             ],
@@ -218,114 +192,141 @@ class _HomePageState extends State<HomePage> {
     required String title,
     required String subtitle,
     required bool isCompleted,
-    required bool isActive,
-    Widget? actionButton,
-    bool hasImage = false,
+    required bool isNext,
     bool isLast = false,
   }) {
-    return IntrinsicHeight(
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          SizedBox(
-            width: 50,
-            child: Column(
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Column(
+          children: [
+            Text(
+              time,
+              style: TextStyle(
+                fontSize: 14,
+                fontWeight: isNext ? FontWeight.bold : FontWeight.normal,
+                color: isNext ? AppColors.primaryRed : AppColors.textGrey,
+              ),
+            ),
+            if (!isLast)
+              Container(
+                margin: const EdgeInsets.symmetric(vertical: 8),
+                width: 2,
+                height: 60,
+                color: isNext
+                    ? AppColors.primaryRed.withOpacity(0.3)
+                    : Colors.grey.shade200,
+              ),
+          ],
+        ),
+        const SizedBox(width: 16),
+        Expanded(
+          child: Container(
+            margin: const EdgeInsets.only(bottom: 16),
+            padding: const EdgeInsets.all(20),
+            decoration: BoxDecoration(
+              color: isNext ? Colors.white : AppColors.backgroundGrey,
+              borderRadius: BorderRadius.circular(24),
+              border: isNext
+                  ? Border.all(
+                      color: AppColors.primaryRed.withOpacity(0.3),
+                      width: 1.5,
+                    )
+                  : null,
+              boxShadow: isNext
+                  ? [
+                      BoxShadow(
+                        color: AppColors.primaryRed.withOpacity(0.1),
+                        blurRadius: 10,
+                        offset: const Offset(0, 4),
+                      ),
+                    ]
+                  : null,
+            ),
+            child: Row(
               children: [
-                Text(
-                  time,
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: isActive ? AppColors.primaryRed : AppColors.textGrey,
+                if (isNext)
+                  Container(
+                    width: 4,
+                    height: 40,
+                    margin: const EdgeInsets.only(right: 12),
+                    decoration: BoxDecoration(
+                      color: AppColors.primaryRed,
+                      borderRadius: BorderRadius.circular(4),
+                    ),
+                  ),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        title,
+                        style: const TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                          color: AppColors.textDark,
+                        ),
+                      ),
+                      const SizedBox(height: 4),
+                      Text(
+                        subtitle,
+                        style: const TextStyle(
+                          fontSize: 14,
+                          color: AppColors.textGrey,
+                        ),
+                      ),
+                    ],
                   ),
                 ),
-                const SizedBox(height: 8),
-                if (!isLast)
-                  Expanded(
-                    child: Container(
-                      width: 1.5,
-                      color: isActive
-                          ? AppColors.primaryRed.withOpacity(0.3)
-                          : Colors.grey.shade300,
+                if (isCompleted)
+                  Container(
+                    padding: const EdgeInsets.all(8),
+                    decoration: BoxDecoration(
+                      color: Colors.teal.withOpacity(0.1),
+                      shape: BoxShape.circle,
+                    ),
+                    child: const Icon(
+                      Icons.check,
+                      color: Colors.teal,
+                      size: 20,
+                    ),
+                  )
+                else if (isNext)
+                  ElevatedButton(
+                    onPressed: () {},
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: AppColors.primaryRed,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      elevation: 0,
+                    ),
+                    child: const Text(
+                      'Check',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  )
+                else
+                  Container(
+                    padding: const EdgeInsets.all(8),
+                    decoration: BoxDecoration(
+                      color: Colors.grey.shade200,
+                      shape: BoxShape.circle,
+                    ),
+                    child: const Icon(
+                      Icons.person,
+                      color: Colors.white,
+                      size: 20,
                     ),
                   ),
               ],
             ),
           ),
-          const SizedBox(width: 16),
-          Expanded(
-            child: Container(
-              margin: const EdgeInsets.only(bottom: 24),
-              padding: const EdgeInsets.all(16),
-              decoration: BoxDecoration(
-                color: isActive ? Colors.white : AppColors.backgroundGrey,
-                borderRadius: BorderRadius.circular(16),
-                boxShadow: isActive
-                    ? [
-                        BoxShadow(
-                          color: Colors.black.withOpacity(0.05),
-                          blurRadius: 10,
-                          offset: const Offset(0, 4),
-                        ),
-                      ]
-                    : [],
-                border: isActive
-                    ? const Border(
-                        left: BorderSide(color: AppColors.primaryRed, width: 4),
-                      )
-                    : null,
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const Text(
-                          'Paracetamol',
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        const SizedBox(height: 4),
-                        Text(
-                          subtitle,
-                          style: TextStyle(
-                            color: Colors.grey[600],
-                            fontSize: 13,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  if (isCompleted)
-                    Container(
-                      padding: const EdgeInsets.all(8),
-                      decoration: BoxDecoration(
-                        color: Colors.teal.withOpacity(0.1),
-                        shape: BoxShape.circle,
-                      ),
-                      child: const Icon(
-                        Icons.check,
-                        color: Colors.teal,
-                        size: 20,
-                      ),
-                    )
-                  else if (actionButton != null)
-                    actionButton
-                  else if (hasImage)
-                    CircleAvatar(
-                      radius: 24,
-                      backgroundColor: Colors.grey.shade300,
-                      child: const Icon(Icons.person, color: Colors.white),
-                    ),
-                ],
-              ),
-            ),
-          ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }

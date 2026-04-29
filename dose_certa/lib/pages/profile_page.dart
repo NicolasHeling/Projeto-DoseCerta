@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../core/theme/app_colors.dart';
+import '../widgets/dose_certa_logo.dart'; // IMPORT DA LOGO
 import 'dependentes_page.dart';
-import '../widgets/dose_certa_logo.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -14,7 +14,6 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
       body: SafeArea(
         child: Column(
           children: [
@@ -26,24 +25,10 @@ class _ProfilePageState extends State<ProfilePage> {
                 ),
                 child: Column(
                   children: [
-                    // Cabeçalho
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        const Row(
-                          children: [
-                            Icon(Icons.medication, color: AppColors.primaryRed),
-                            SizedBox(width: 8),
-                            Text(
-                              'DoseCerta',
-                              style: TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
-                                color: AppColors.textDark,
-                              ),
-                            ),
-                          ],
-                        ),
+                        const DoseCertaLogo(), // LOGO CLICÁVEL AQUI
                         Row(
                           children: [
                             const Icon(
@@ -65,8 +50,6 @@ class _ProfilePageState extends State<ProfilePage> {
                       ],
                     ),
                     const SizedBox(height: 32),
-
-                    // Avatar
                     Stack(
                       alignment: Alignment.bottomRight,
                       children: [
@@ -95,7 +78,6 @@ class _ProfilePageState extends State<ProfilePage> {
                       ],
                     ),
                     const SizedBox(height: 16),
-
                     const Text(
                       'João Silva',
                       style: TextStyle(
@@ -110,7 +92,6 @@ class _ProfilePageState extends State<ProfilePage> {
                       style: TextStyle(fontSize: 14, color: AppColors.textGrey),
                     ),
                     const SizedBox(height: 16),
-
                     ElevatedButton(
                       onPressed: () {},
                       style: ElevatedButton.styleFrom(
@@ -131,8 +112,6 @@ class _ProfilePageState extends State<ProfilePage> {
                       ),
                     ),
                     const SizedBox(height: 32),
-
-                    // Lista de Opções
                     _buildProfileOption(
                       icon: Icons.medical_information_outlined,
                       title: 'Informações Adicionais',
@@ -160,8 +139,6 @@ class _ProfilePageState extends State<ProfilePage> {
                       ),
                     ),
                     _buildDivider(),
-
-                    // ESTA É A PARTE QUE ENVOLVEMOS COM INKWELL:
                     InkWell(
                       onTap: () {
                         Navigator.push(
@@ -206,8 +183,6 @@ class _ProfilePageState extends State<ProfilePage> {
                       ),
                     ),
                     const SizedBox(height: 40),
-
-                    // Botão Sair
                     SizedBox(
                       width: double.infinity,
                       height: 56,
@@ -282,7 +257,6 @@ class _ProfilePageState extends State<ProfilePage> {
     );
   }
 
-  Widget _buildDivider() {
-    return Divider(color: Colors.grey.shade100, height: 16, thickness: 1);
-  }
+  Widget _buildDivider() =>
+      Divider(color: Colors.grey.shade100, height: 16, thickness: 1);
 }

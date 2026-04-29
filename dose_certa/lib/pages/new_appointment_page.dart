@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import '../core/theme/app_colors.dart';
-import '../widgets/dose_certa_logo.dart';
+import '../widgets/custom_text_field.dart';
+import 'success_page.dart'; // Import da tela de sucesso
+import 'main_screen.dart'; // Import da tela principal
 
 class NewAppointmentPage extends StatelessWidget {
   const NewAppointmentPage({super.key});
@@ -8,11 +10,9 @@ class NewAppointmentPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
       body: SafeArea(
         child: Column(
           children: [
-            // Cabeçalho (Botão Fechar e Título)
             Padding(
               padding: const EdgeInsets.symmetric(
                 horizontal: 16.0,
@@ -33,12 +33,10 @@ class NewAppointmentPage extends StatelessWidget {
                       color: AppColors.textDark,
                     ),
                   ),
-                  const SizedBox(width: 48), // Equilíbrio visual
+                  const SizedBox(width: 48),
                 ],
               ),
             ),
-
-            // Corpo Rolável
             Expanded(
               child: SingleChildScrollView(
                 padding: const EdgeInsets.symmetric(
@@ -48,7 +46,6 @@ class NewAppointmentPage extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    // Card Vermelho "Consulta"
                     Container(
                       width: double.infinity,
                       height: 140,
@@ -73,33 +70,32 @@ class NewAppointmentPage extends StatelessWidget {
                     ),
                     const SizedBox(height: 32),
 
-                    // Formulário
-                    _buildInputField(
+                    const CustomTextField(
                       label: 'Nome do Médico',
                       hint: 'Ex: Ana Luiza',
                       icon: Icons.edit_outlined,
                     ),
-                    _buildInputField(
+                    const CustomTextField(
                       label: 'Especialidade',
                       hint: 'Ex: Clínico Geral',
                       icon: Icons.badge_outlined,
                     ),
-                    _buildInputField(
+                    const CustomTextField(
                       label: 'Data',
                       hint: 'Ex: 25 de Outubro de 2026',
                       icon: Icons.calendar_today_outlined,
                     ),
-                    _buildInputField(
+                    const CustomTextField(
                       label: 'Local',
                       hint: 'Ex: Hospital Geral Unimed',
                       icon: Icons.keyboard_arrow_down,
                     ),
-                    _buildInputField(
+                    const CustomTextField(
                       label: 'Horário',
                       hint: 'Ex: 14:30',
                       icon: Icons.keyboard_arrow_down,
                     ),
-                    _buildInputField(
+                    const CustomTextField(
                       label: 'Dependente',
                       hint: 'Maria Souza',
                       icon: Icons.keyboard_arrow_down,
@@ -109,8 +105,6 @@ class NewAppointmentPage extends StatelessWidget {
                 ),
               ),
             ),
-
-            // Botão Salvar
             Padding(
               padding: const EdgeInsets.all(24.0),
               child: SizedBox(
@@ -118,7 +112,26 @@ class NewAppointmentPage extends StatelessWidget {
                 height: 56,
                 child: ElevatedButton(
                   onPressed: () {
-                    // Lógica para salvar futuramente
+                    // NAVEGAÇÃO PARA A TELA DE SUCESSO
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => SuccessPage(
+                          title: 'Cadastro Realizado\ncom Sucesso!',
+                          subtitle: 'Sua consulta foi agendada.',
+                          buttonText: 'Ir para o Início',
+                          onButtonPressed: () {
+                            Navigator.pushAndRemoveUntil(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const MainScreen(),
+                              ),
+                              (Route<dynamic> route) => false,
+                            );
+                          },
+                        ),
+                      ),
+                    );
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: AppColors.primaryRed,
@@ -148,50 +161,6 @@ class NewAppointmentPage extends StatelessWidget {
             ),
           ],
         ),
-      ),
-    );
-  }
-
-  Widget _buildInputField({
-    required String label,
-    required String hint,
-    required IconData icon,
-  }) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 20.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            label,
-            style: const TextStyle(
-              color: AppColors.textDark,
-              fontWeight: FontWeight.bold,
-              fontSize: 14,
-            ),
-          ),
-          const SizedBox(height: 8),
-          TextField(
-            decoration: InputDecoration(
-              hintText: hint,
-              hintStyle: const TextStyle(
-                color: AppColors.textGrey,
-                fontSize: 15,
-              ),
-              suffixIcon: Icon(icon, color: AppColors.textGrey, size: 22),
-              filled: true,
-              fillColor: AppColors.backgroundGrey,
-              contentPadding: const EdgeInsets.symmetric(
-                horizontal: 20,
-                vertical: 16,
-              ),
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(16),
-                borderSide: BorderSide.none,
-              ),
-            ),
-          ),
-        ],
       ),
     );
   }

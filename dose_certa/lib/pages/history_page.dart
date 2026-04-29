@@ -1,355 +1,201 @@
 import 'package:flutter/material.dart';
 import '../core/theme/app_colors.dart';
-import '../widgets/dose_certa_logo.dart';
+import '../widgets/dose_certa_logo.dart'; // IMPORT DA LOGO
 
-class HistoryPage extends StatefulWidget {
+class HistoryPage extends StatelessWidget {
   const HistoryPage({super.key});
-
-  @override
-  State<HistoryPage> createState() => _HistoryPageState();
-}
-
-class _HistoryPageState extends State<HistoryPage> {
-  // Cores específicas desta tela
-  final Color _lightRed = const Color(0xFFFDECEB);
-  final Color _successGreen = const Color(0xFF00796B);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
       body: SafeArea(
-        child: Column(
-          children: [
-            Expanded(
-              child: SingleChildScrollView(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 24.0,
-                  vertical: 16.0,
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    // Cabeçalho (Logo e Perfil)
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        const Row(
-                          children: [
-                            Icon(Icons.medication, color: AppColors.primaryRed),
-                            SizedBox(width: 8),
-                            const Text(
-                              'DoseCerta',
-                              style: TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
-                                color: AppColors.textDark,
-                              ),
-                            ),
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            const Icon(
-                              Icons.notifications_none,
-                              color: AppColors.textDark,
-                            ),
-                            const SizedBox(width: 16),
-                            CircleAvatar(
-                              radius: 16,
-                              backgroundColor: AppColors.backgroundGrey,
-                              child: const Icon(
-                                Icons.person,
-                                size: 20,
-                                color: AppColors.textGrey,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 32),
-
-                    // Título
-                    const Text(
-                      'Histórico',
-                      style: TextStyle(
-                        fontSize: 32,
-                        fontWeight: FontWeight.bold,
-                        color: AppColors.primaryRed,
-                      ),
-                    ),
-                    const SizedBox(height: 24),
-
-                    // Selecionador de Mês
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        const Text(
-                          'Outubro 2025',
-                          style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                            color: AppColors.textDark,
-                          ),
-                        ),
-                        Row(
-                          children: [
-                            _buildMonthNavigationButton(Icons.chevron_left),
-                            const SizedBox(width: 8),
-                            _buildMonthNavigationButton(Icons.chevron_right),
-                          ],
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 24),
-
-                    // Calendário
-                    _buildCalendarView(),
-                    const SizedBox(height: 40),
-
-                    // Cards de Resumo (Usuário 1)
-                    _buildUserStatsRow(
-                      avatarColor: Colors.blue.shade100,
-                      dosesTomadas: '124',
-                      dosesPerdidas: '02',
-                    ),
-                    const SizedBox(height: 24),
-
-                    // Cards de Resumo (Usuário 2)
-                    _buildUserStatsRow(
-                      avatarColor: Colors.brown.shade200,
-                      dosesTomadas: '124',
-                      dosesPerdidas: '02',
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildMonthNavigationButton(IconData icon) {
-    return Container(
-      padding: const EdgeInsets.all(4),
-      decoration: const BoxDecoration(
-        color: AppColors.backgroundGrey,
-        shape: BoxShape.circle,
-      ),
-      child: Icon(icon, color: AppColors.textDark, size: 20),
-    );
-  }
-
-  Widget _buildCalendarView() {
-    return Container(
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(32),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.02),
-            blurRadius: 20,
-            offset: const Offset(0, 10),
-            spreadRadius: 5,
-          ),
-        ],
-      ),
-      child: Column(
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: ['DOM', 'SEG', 'TER', 'QUA', 'QUI', 'SEX', 'SÁB']
-                .map(
-                  (day) => SizedBox(
-                    width: 32,
-                    child: Text(
-                      day,
-                      textAlign: TextAlign.center,
-                      style: const TextStyle(
-                        fontSize: 10,
-                        fontWeight: FontWeight.bold,
-                        color: AppColors.primaryRed,
-                      ),
-                    ),
-                  ),
-                )
-                .toList(),
-          ),
-          const SizedBox(height: 16),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 16.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              _buildDayCell('28', isFaded: true),
-              _buildDayCell('29', isFaded: true),
-              _buildDayCell('30', isFaded: true),
-              _buildDayCell('1', status: 'check'),
-              _buildDayCell('2', status: 'check'),
-              _buildDayCell('3', status: 'cross'),
-              _buildDayCell('4', status: 'check'),
-            ],
-          ),
-          const SizedBox(height: 16),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              _buildDayCell('5', status: 'check'),
-              _buildDayCell('6', status: 'check'),
-              _buildDayCell('7', status: 'cross'),
-              _buildDayCell('8', status: 'check', isSelected: true),
-              _buildDayCell('9', status: 'check'),
-              _buildDayCell('10', status: 'check'),
-              _buildDayCell('11', status: 'check'),
-            ],
-          ),
-          const SizedBox(height: 16),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              _buildDayCell('12'),
-              _buildDayCell('13'),
-              _buildDayCell('14'),
-              _buildDayCell('15'),
-              _buildDayCell('16'),
-              _buildDayCell('17'),
-              _buildDayCell('18'),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildDayCell(
-    String day, {
-    bool isFaded = false,
-    bool isSelected = false,
-    String? status,
-  }) {
-    return Container(
-      width: 36,
-      height: 48,
-      decoration: BoxDecoration(
-        color: isSelected ? _lightRed : Colors.transparent,
-        borderRadius: BorderRadius.circular(20),
-      ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text(
-            day,
-            style: TextStyle(
-              fontSize: 14,
-              fontWeight: FontWeight.bold,
-              color: isFaded
-                  ? Colors.grey.shade400
-                  : (isSelected ? AppColors.primaryRed : AppColors.textDark),
-            ),
-          ),
-          const SizedBox(height: 2),
-          if (status == 'check')
-            Icon(Icons.check_circle, color: _successGreen, size: 12)
-          else if (status == 'cross')
-            const Icon(Icons.cancel, color: AppColors.primaryRed, size: 12)
-          else
-            const SizedBox(height: 12),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildUserStatsRow({
-    required Color avatarColor,
-    required String dosesTomadas,
-    required String dosesPerdidas,
-  }) {
-    return Row(
-      children: [
-        CircleAvatar(
-          radius: 30,
-          backgroundColor: avatarColor,
-          child: const Icon(Icons.person, size: 40, color: Colors.white),
-        ),
-        const SizedBox(width: 16),
-        Expanded(
-          child: Row(
-            children: [
-              Expanded(
-                child: Container(
-                  padding: const EdgeInsets.all(16),
-                  decoration: BoxDecoration(
-                    color: AppColors.backgroundGrey,
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Icon(Icons.checklist_rtl, color: _successGreen, size: 24),
-                      const SizedBox(height: 8),
-                      Text(
-                        dosesTomadas,
-                        style: const TextStyle(
-                          fontSize: 24,
-                          fontWeight: FontWeight.bold,
-                          color: AppColors.textDark,
-                        ),
-                      ),
-                      const Text(
-                        'DOSES TOMADAS',
-                        style: TextStyle(
-                          fontSize: 10,
-                          fontWeight: FontWeight.bold,
-                          color: Color(0xFF6D4C41),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              const SizedBox(width: 12),
-              Expanded(
-                child: Container(
-                  padding: const EdgeInsets.all(16),
-                  decoration: BoxDecoration(
-                    color: AppColors.backgroundGrey,
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+              // Cabeçalho
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const DoseCertaLogo(), // LOGO CLICÁVEL AQUI
+                  Row(
                     children: [
                       const Icon(
-                        Icons.event_busy,
-                        color: AppColors.primaryRed,
-                        size: 24,
+                        Icons.notifications_none,
+                        color: AppColors.textDark,
                       ),
-                      const SizedBox(height: 8),
-                      Text(
-                        dosesPerdidas,
-                        style: const TextStyle(
-                          fontSize: 24,
-                          fontWeight: FontWeight.bold,
-                          color: AppColors.textDark,
-                        ),
-                      ),
-                      const Text(
-                        'DOSES PERDIDAS',
-                        style: TextStyle(
-                          fontSize: 10,
-                          fontWeight: FontWeight.bold,
-                          color: Color(0xFF6D4C41),
+                      const SizedBox(width: 16),
+                      CircleAvatar(
+                        radius: 16,
+                        backgroundColor: AppColors.backgroundGrey,
+                        child: const Icon(
+                          Icons.person,
+                          size: 20,
+                          color: AppColors.textGrey,
                         ),
                       ),
                     ],
                   ),
+                ],
+              ),
+              const SizedBox(height: 32),
+
+              const Text(
+                'Histórico',
+                style: TextStyle(
+                  fontSize: 32,
+                  fontWeight: FontWeight.bold,
+                  color: AppColors.primaryRed,
                 ),
+              ),
+              const SizedBox(height: 24),
+
+              // Abas (Hoje, Semana, Mês)
+              Row(
+                children: [
+                  _buildTab('Hoje', isSelected: true),
+                  const SizedBox(width: 12),
+                  _buildTab('Semana'),
+                  const SizedBox(width: 12),
+                  _buildTab('Mês'),
+                ],
+              ),
+              const SizedBox(height: 32),
+
+              const Text(
+                'Novembro 2024',
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  color: AppColors.textDark,
+                ),
+              ),
+              const SizedBox(height: 16),
+
+              _buildHistoryItem(
+                time: '08:00',
+                title: 'Paracetamol',
+                subtitle: '500mg • 1 comprimido',
+                statusText: 'TOMADO',
+                isCompleted: true,
+              ),
+              _buildHistoryItem(
+                time: '14:00',
+                title: 'Vitamina D',
+                subtitle: '45 gotas',
+                statusText: 'TOMADO',
+                isCompleted: true,
+              ),
+              _buildHistoryItem(
+                time: '20:00',
+                title: 'Ibuprofeno',
+                subtitle: '400mg • 1 comprimido',
+                statusText: 'ATRASADO',
+                isCompleted: false,
               ),
             ],
           ),
         ),
-      ],
+      ),
+    );
+  }
+
+  Widget _buildTab(String title, {bool isSelected = false}) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+      decoration: BoxDecoration(
+        color: isSelected ? AppColors.primaryRed : AppColors.backgroundGrey,
+        borderRadius: BorderRadius.circular(20),
+      ),
+      child: Text(
+        title,
+        style: TextStyle(
+          color: isSelected ? Colors.white : AppColors.textGrey,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+    );
+  }
+
+  Widget _buildHistoryItem({
+    required String time,
+    required String title,
+    required String subtitle,
+    required String statusText,
+    required bool isCompleted,
+  }) {
+    final Color statusColor = isCompleted ? Colors.teal : AppColors.primaryRed;
+    return Container(
+      margin: const EdgeInsets.only(bottom: 16),
+      padding: const EdgeInsets.all(20),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(24),
+        border: Border.all(color: Colors.grey.shade200),
+      ),
+      child: Row(
+        children: [
+          Container(
+            padding: const EdgeInsets.all(12),
+            decoration: BoxDecoration(
+              color: isCompleted
+                  ? Colors.teal.withOpacity(0.1)
+                  : AppColors.primaryRed.withOpacity(0.1),
+              shape: BoxShape.circle,
+            ),
+            child: Icon(
+              isCompleted ? Icons.check : Icons.close,
+              color: statusColor,
+            ),
+          ),
+          const SizedBox(width: 16),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  title,
+                  style: const TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                    color: AppColors.textDark,
+                  ),
+                ),
+                const SizedBox(height: 4),
+                Text(
+                  subtitle,
+                  style: const TextStyle(
+                    fontSize: 14,
+                    color: AppColors.textGrey,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              Text(
+                time,
+                style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: AppColors.textDark,
+                ),
+              ),
+              const SizedBox(height: 4),
+              Text(
+                statusText,
+                style: TextStyle(
+                  fontSize: 10,
+                  fontWeight: FontWeight.bold,
+                  color: statusColor,
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
     );
   }
 }

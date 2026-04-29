@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../core/theme/app_colors.dart';
+import '../widgets/dose_certa_logo.dart'; // IMPORT DA LOGO
 import 'new_medication_page.dart';
-import '../widgets/dose_certa_logo.dart';
 
 class InventoryPage extends StatefulWidget {
   const InventoryPage({super.key});
@@ -14,11 +14,9 @@ class _InventoryPageState extends State<InventoryPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
       body: SafeArea(
         child: Column(
           children: [
-            // Parte rolável (Cabeçalho, Busca e Lista)
             Expanded(
               child: SingleChildScrollView(
                 padding: const EdgeInsets.symmetric(
@@ -28,24 +26,10 @@ class _InventoryPageState extends State<InventoryPage> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    // Cabeçalho (Logo e Perfil)
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        const Row(
-                          children: [
-                            Icon(Icons.medication, color: AppColors.primaryRed),
-                            SizedBox(width: 8),
-                            Text(
-                              'DoseCerta',
-                              style: TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
-                                color: AppColors.textDark,
-                              ),
-                            ),
-                          ],
-                        ),
+                        const DoseCertaLogo(), // LOGO CLICÁVEL AQUI
                         Row(
                           children: [
                             const Icon(
@@ -67,8 +51,6 @@ class _InventoryPageState extends State<InventoryPage> {
                       ],
                     ),
                     const SizedBox(height: 32),
-
-                    // Título
                     const Text(
                       'Estoque',
                       style: TextStyle(
@@ -78,8 +60,6 @@ class _InventoryPageState extends State<InventoryPage> {
                       ),
                     ),
                     const SizedBox(height: 24),
-
-                    // Barra de Busca
                     TextField(
                       decoration: InputDecoration(
                         hintText: 'Buscar medicamentos...',
@@ -103,10 +83,6 @@ class _InventoryPageState extends State<InventoryPage> {
                       ),
                     ),
                     const SizedBox(height: 32),
-
-                    // Lista de Medicamentos
-
-                    // 1. Paracetamol (Normal)
                     _buildInventoryCard(
                       icon: Icons.medication_liquid,
                       iconColor: AppColors.primaryRed,
@@ -114,11 +90,9 @@ class _InventoryPageState extends State<InventoryPage> {
                       title: 'Paracetamol',
                       subtitle: '(500mg)',
                       quantityText: '12 comprimidos restantes',
-                      capacity: 0.4, // 40%
+                      capacity: 0.4,
                       barColor: AppColors.primaryRed,
                     ),
-
-                    // 2. Ibuprofeno (Crítico)
                     _buildInventoryCard(
                       icon: Icons.warning_amber_rounded,
                       iconColor: AppColors.primaryRed,
@@ -126,28 +100,24 @@ class _InventoryPageState extends State<InventoryPage> {
                       title: 'Ibuprofeno',
                       subtitle: '(400mg)',
                       quantityText: '2 comprimidos restantes',
-                      capacity: 0.1, // 10%
+                      capacity: 0.1,
                       barColor: AppColors.primaryRed,
-                      isCritical: true, // Ativa o layout de alerta
+                      isCritical: true,
                     ),
-
-                    // 3. Vitamina D (Normal / Bom)
                     _buildInventoryCard(
                       icon: Icons.water_drop_outlined,
                       iconColor: Colors.teal,
                       iconBgColor: AppColors.backgroundGrey,
                       title: 'Vitamina D',
                       subtitle: '45 gotas',
-                      quantityText: '', // Sem texto extra
-                      capacity: 0.8, // 80%
+                      quantityText: '',
+                      capacity: 0.8,
                       barColor: Colors.teal,
                     ),
                   ],
                 ),
               ),
             ),
-
-            // Botão Cadastrar fixo na parte inferior
             Padding(
               padding: const EdgeInsets.all(24.0),
               child: SizedBox(
@@ -155,7 +125,6 @@ class _InventoryPageState extends State<InventoryPage> {
                 height: 56,
                 child: ElevatedButton(
                   onPressed: () {
-                    // Navega para a tela de Novo Medicamento
                     Navigator.push(
                       context,
                       MaterialPageRoute(
@@ -194,7 +163,6 @@ class _InventoryPageState extends State<InventoryPage> {
     );
   }
 
-  // Widget customizado para os Cards de Estoque
   Widget _buildInventoryCard({
     required IconData icon,
     required Color iconColor,
@@ -251,7 +219,6 @@ class _InventoryPageState extends State<InventoryPage> {
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // Ícone do medicamento
                   Container(
                     padding: const EdgeInsets.all(12),
                     decoration: BoxDecoration(
@@ -261,8 +228,6 @@ class _InventoryPageState extends State<InventoryPage> {
                     child: Icon(icon, color: iconColor, size: 28),
                   ),
                   const SizedBox(width: 16),
-
-                  // Título e Subtítulo
                   Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -324,8 +289,6 @@ class _InventoryPageState extends State<InventoryPage> {
                       ],
                     ),
                   ),
-
-                  // Botão de Adicionar (+)
                   Container(
                     decoration: BoxDecoration(
                       color: isCritical
@@ -344,8 +307,6 @@ class _InventoryPageState extends State<InventoryPage> {
                 ],
               ),
               const SizedBox(height: 24),
-
-              // Barra de Progresso
               ClipRRect(
                 borderRadius: BorderRadius.circular(8),
                 child: LinearProgressIndicator(
@@ -356,8 +317,6 @@ class _InventoryPageState extends State<InventoryPage> {
                 ),
               ),
               const SizedBox(height: 8),
-
-              // Textos abaixo da barra
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
